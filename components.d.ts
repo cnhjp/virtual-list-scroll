@@ -7,7 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    DynamicHeightVirtualList: typeof import('./src/components/DynamicHeightVirtualList.vue')['default']
     NormalList: typeof import('./src/components/NormalList.vue')['default']
+    StaticHeightVirtualList: typeof import('./src/components/StaticHeightVirtualList.vue')['default']
   }
 }

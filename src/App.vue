@@ -1,17 +1,28 @@
 <template>
   <div class="tabs">
-    <div class="tab" v-for="tab in lists" :key="tab">{{ tab }}</div>
+    <div
+      class="tab"
+      v-for="tab in lists"
+      :key="tab"
+      :class="{ active: tab === current }"
+      @click="current = tab"
+    >
+      {{ tab }}
+    </div>
   </div>
 
   <div class="content">
     <NormalList v-if="current === 'NormalList'" />
+    <StaticHeightVirtualList
+      v-else-if="current === 'StaticHeightVirtualList'"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 
-const lists = ref(["NormalList"]);
+const lists = ref(["StaticHeightVirtualList", "NormalList"]);
 const current = ref(lists.value[0]);
 </script>
 <style scoped>
@@ -33,6 +44,11 @@ const current = ref(lists.value[0]);
   font-size: 18px;
   color: #333;
   cursor: pointer;
+}
+
+.tab.active {
+  color: #007bff;
+  font-weight: bold;
 }
 
 .tab:hover {

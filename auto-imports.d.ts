@@ -88,10 +88,8 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
-    readonly $toast: UnwrapRef<typeof import('./src/utils/toast')['$toast']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
-    readonly add: UnwrapRef<typeof import('./src/utils/toast')['add']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
@@ -164,10 +162,8 @@ declare module 'vue' {
 declare module '@vue/runtime-core' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
-    readonly $toast: UnwrapRef<typeof import('./src/utils/toast')['$toast']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
-    readonly add: UnwrapRef<typeof import('./src/utils/toast')['add']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
