@@ -3,27 +3,46 @@
     <div
       class="tab"
       v-for="tab in lists"
-      :key="tab"
-      :class="{ active: tab === current }"
-      @click="current = tab"
+      :key="tab.label"
+      :class="{ active: tab.label === current }"
+      @click="current = tab.label"
     >
-      {{ tab }}
+      {{ tab.label }}
     </div>
   </div>
 
   <div class="content">
-    <NormalList v-if="current === 'NormalList'" />
-    <StaticHeightVirtualList
-      v-else-if="current === 'StaticHeightVirtualList'"
+    <NormalList v-if="current === '普通列表'" />
+    <StaticHeightVirtualListScroll
+      v-else-if="current === '固定高度虚拟列表(scroll)'"
     />
+    <StaticHeightVirtualListObserver
+      v-else-if="current === '固定高度虚拟列表(observer)'"
+    />
+    <DynamicHeightVirtualList v-else-if="current === '动态高度虚拟列表'" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
-const lists = ref(["StaticHeightVirtualList", "NormalList"]);
-const current = ref(lists.value[0]);
+const lists = ref([
+  {
+    label: "固定高度虚拟列表(observer)",
+    component: "StaticHeightVirtualListObserver",
+  },
+  {
+    label: "固定高度虚拟列表(scroll)",
+    component: "StaticHeightVirtualListScroll",
+  },
+  {
+    label: "动态高度虚拟列表",
+    component: "DynamicHeightVirtualList",
+  },
+  {
+    label: "普通列表",
+    component: "NormalList",
+  },
+]);
+const current = ref("动态高度虚拟列表");
 </script>
 <style scoped>
 .tabs {

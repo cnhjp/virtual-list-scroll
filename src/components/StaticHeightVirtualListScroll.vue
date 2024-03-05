@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const itemHeight = ref(50); // 单个列表项高度
 const itemCount = ref(1000); // 列表项数量
-const visibleHeight = ref(300); // 可见区域高度
+const visibleHeight = ref(250); // 可见区域高度
 const startIndex = ref(0); // 可见区域起始索引
 const refVirtualScrollList = ref<HTMLElement | null>(null); // 列表容器
 
@@ -11,7 +11,7 @@ const listHeight = computed(() => {
 });
 // 可见列表项数量
 const visibleCount = computed(() => {
-  return Math.ceil(visibleHeight.value / itemHeight.value);
+  return Math.ceil(visibleHeight.value / itemHeight.value) + 1;
 });
 // 可见列表
 const visibleList = computed(() => {
@@ -33,6 +33,7 @@ function handleScroll(e: Event) {
   startIndex.value = Math.floor(target.scrollTop / itemHeight.value);
 }
 
+// 监听列表容器滚动事件，计算出当前滚动到的列表项索引
 onMounted(() => {
   if (!refVirtualScrollList.value) return;
   refVirtualScrollList.value.addEventListener("scroll", handleScroll);
@@ -56,10 +57,8 @@ onUnmounted(() => {
         v-for="index in visibleList"
         :key="index"
         :style="{
-          width: '100%',
           height: `${itemHeight}px`,
           lineHeight: `${itemHeight}px`,
-          textAlign: 'center',
         }"
       >
         {{ index }}
@@ -79,5 +78,11 @@ onUnmounted(() => {
 .render-list {
   position: absolute;
   width: 100%;
+}
+
+.render-list .list-item {
+  box-sizing: border-box;
+  border-bottom: 1px solid #000;
+  text-align: center;
 }
 </style>

@@ -7,8 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/StaticHeightVirtualList copy.vue')['default']
     DynamicHeightVirtualList: typeof import('./src/components/DynamicHeightVirtualList.vue')['default']
     NormalList: typeof import('./src/components/NormalList.vue')['default']
     StaticHeightVirtualList: typeof import('./src/components/StaticHeightVirtualList.vue')['default']
+    StaticHeightVirtualList2: typeof import('./src/components/StaticHeightVirtualList2.vue')['default']
+    StaticHeightVirtualListObserver: typeof import('./src/components/StaticHeightVirtualListObserver.vue')['default']
+    StaticHeightVirtualListScroll: typeof import('./src/components/StaticHeightVirtualListScroll.vue')['default']
+    StaticHeightVirtualListStaticHeightVirtualListObserver: typeof import('./src/components/StaticHeightVirtualListStaticHeightVirtualListObserver.vue')['default']
   }
 }
