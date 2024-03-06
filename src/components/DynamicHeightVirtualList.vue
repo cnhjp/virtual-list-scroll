@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import rawData from "../data.json";
-
-const data: string[] = rawData as string[];
+const data: DataItem[] = rawData as DataItem[];
 
 interface Record {
   index: number;
@@ -11,8 +10,8 @@ interface Record {
 
 const records = ref<Record[]>([]); // 记录列表项高度
 const estimateHeight = ref(50); // 列表项预估高度
-const visibleHeight = ref(250); // 可见区域高度
-const list = ref<string[]>([]); // 列表数据
+const visibleHeight = ref(450); // 可见区域高度
+const list = ref<DataItem[]>([]); // 列表数据
 const startIndex = ref(0); // 可见区域起始索引
 const endIndex = ref(0); // 可见区域结束索引
 const refVirtualScrollList = ref<HTMLElement | null>(null); // 列表容器
@@ -43,10 +42,8 @@ const visibleList = computed(() => {
 
 // 初始化列表项高度
 onMounted(() => {
-  const total = (data as string[]).length;
-  list.value = new Array(total)
-    .fill(0)
-    .map((_, index) => (data as string[])[index]);
+  const total = data.length;
+  list.value = new Array(total).fill(0).map((_, index) => data[index]);
 
   records.value = new Array(total).fill(0).map((_, index) => ({
     index,
@@ -137,7 +134,8 @@ onUnmounted(() => {
         :id="`${idPrefix}${item.index}`"
       >
         <span style="color: red">{{ item.index }}</span>
-        <div>{{ list[item.index] }}</div>
+        <div>{{ list[item.index].text }}</div>
+        <img :src="list[item.index].image" />
       </div>
     </div>
   </div>

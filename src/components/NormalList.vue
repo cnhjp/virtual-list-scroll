@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import rawData from "../data.json";
 
-const data: string[] = rawData as string[];
+const data: DataItem[] = rawData as DataItem[];
 
-const visibleHeight = ref(250); // 可见区域高度
-const list = ref<string[]>(data as string[]); // 列表数据
+const visibleHeight = ref(450); // 可见区域高度
+const list = ref<DataItem[]>(data); // 列表数据
 </script>
 
 <template>
@@ -16,7 +16,8 @@ const list = ref<string[]>(data as string[]); // 列表数据
     <div ref="refRenderList" class="render-list">
       <div class="list-item" v-for="(item, index) in list" :key="index">
         <span style="color: red">{{ index }}</span>
-        <div>{{ item }}</div>
+        <div>{{ item.text }}</div>
+        <img :src="item.image" />
       </div>
     </div>
   </div>
