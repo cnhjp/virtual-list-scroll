@@ -13,3 +13,4 @@ export function generateRandomEnglishText(min: number = 100, max: number = 500):
     }
     return result;
 }
+

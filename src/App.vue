@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="content">
+  <div class="content" :key="current">
     <NormalList v-if="current === '普通列表'" />
     <StaticHeightVirtualListScroll
       v-else-if="current === '固定高度虚拟列表(scroll)'"
@@ -44,6 +44,7 @@ const lists = ref([
 ]);
 const current = ref("动态高度虚拟列表");
 </script>
+
 <style scoped>
 .tabs {
   position: fixed;

@@ -1,28 +1,44 @@
 <script setup lang="ts">
-onMounted(() => {
-  const button = document.getElementById("button");
-  const ul = document.getElementById("container");
+import rawData from "../data.json";
 
-  if (button && ul) {
-    button.addEventListener("click", function () {
-      let now = Date.now();
-      const total = 10000;
+const data: string[] = rawData as string[];
 
-      for (let i = 0; i < total; i++) {
-        let li = document.createElement("li");
-        li.innerText = (~~(Math.random() * total)).toString();
-        ul.appendChild(li);
-      }
-      console.log(`JS运行时间：${Date.now() - now}`);
-      setTimeout(() => {
-        console.log(`总运行时间：${Date.now() - now}`);
-      }, 0);
-    });
-  }
-});
+const visibleHeight = ref(250); // 可见区域高度
+const list = ref<string[]>(data as string[]); // 列表数据
 </script>
 
 <template>
-  <button id="button">button</button><br />
-  <ul id="container"></ul>
+  <div
+    ref="refVirtualScrollList"
+    class="virtual-scroll-list"
+    :style="{ height: `${visibleHeight}px` }"
+  >
+    <div ref="refRenderList" class="render-list">
+      <div class="list-item" v-for="(item, index) in list" :key="index">
+        <span style="color: red">{{ index }}</span>
+        <div>{{ item }}</div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.virtual-scroll-list {
+  position: relative;
+  width: 90vw;
+  overflow-y: auto;
+  border: 1px solid red;
+}
+
+.render-list {
+  position: absolute;
+  width: 100%;
+}
+
+.render-list .list-item {
+  box-sizing: border-box;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  padding: 13px 0;
+}
+</style>

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import rawData from "../data.json";
+
+const data: string[] = rawData as string[];
+
 interface Record {
   index: number;
   height: number;
@@ -37,23 +41,12 @@ const visibleList = computed(() => {
   return records.value.slice(start, end + 1);
 });
 
-// 更新startIndex和endIndex
-// onUpdated(() => {
-//   const scrollTop = refVirtualScrollList.value?.scrollTop || 0;
-//   const start = Math.floor(scrollTop / estimateHeight.value);
-//   const end = Math.min(
-//     start + Math.ceil(visibleHeight.value / estimateHeight.value),
-//     total.value - 1
-//   );
-//   startIndex.value = start;
-//   endIndex.value = end;
-// });
-
 // 初始化列表项高度
 onMounted(() => {
-  const total = 10000;
-  list.value = new Array(total).fill(0).map((_) => generateRandomEnglishText());
-  console.log(list.value[0], 909090);
+  const total = (data as string[]).length;
+  list.value = new Array(total)
+    .fill(0)
+    .map((_, index) => (data as string[])[index]);
 
   records.value = new Array(total).fill(0).map((_, index) => ({
     index,
@@ -111,13 +104,21 @@ function handleScroll(e: Event) {
     }
   });
 }
+
+const throttleHandleScroll = throttle(handleScroll, 16.7);
+
 onMounted(() => {
   if (!refVirtualScrollList.value) return;
-  refVirtualScrollList.value.addEventListener("scroll", handleScroll);
+  refVirtualScrollList.value.addEventListener("scroll", throttleHandleScroll, {
+    passive: true,
+  });
 });
 onUnmounted(() => {
   if (!refVirtualScrollList.value) return;
-  refVirtualScrollList.value.removeEventListener("scroll", handleScroll);
+  refVirtualScrollList.value.removeEventListener(
+    "scroll",
+    throttleHandleScroll
+  );
 });
 </script>
 
