@@ -9,7 +9,7 @@ interface Record {
 }
 
 const records = ref<Record[]>([]); // 记录列表项高度
-const estimateHeight = ref(50); // 列表项预估高度
+const estimateHeight = ref(150); // 列表项预估高度
 const visibleHeight = ref(450); // 可见区域高度
 const list = ref<DataItem[]>([]); // 列表数据
 const startIndex = ref(0); // 可见区域起始索引
@@ -57,6 +57,7 @@ onMounted(() => {
 
 // 更新items的高度
 function updateItemsHeights() {
+  console.log("updateItemsHeights");
   const items = refRenderList.value?.children;
   if (!items) return;
   [...items].forEach((element) => {

@@ -18,4 +18,7 @@ export default defineConfig({
   }), AutoComponents({
     dirs: ['src/components']
   })],
+  server: {
+    port: 9090
+  }
 })

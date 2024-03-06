@@ -21,6 +21,7 @@ declare global {
   const generateRandom: typeof import('./src/utils/mock')['generateRandom']
   const generateRandomArray: typeof import('./src/utils/mock')['generateRandomArray']
   const generateRandomEnglishText: typeof import('./src/utils/mock')['generateRandomEnglishText']
+  const generateRandomImage: typeof import('./src/utils/mock')['generateRandomImage']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -104,6 +105,7 @@ declare module 'vue' {
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly generateRandomEnglishText: UnwrapRef<typeof import('./src/utils/mock')['generateRandomEnglishText']>
+    readonly generateRandomImage: UnwrapRef<typeof import('./src/utils/mock')['generateRandomImage']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
@@ -180,6 +182,7 @@ declare module '@vue/runtime-core' {
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly generateRandomEnglishText: UnwrapRef<typeof import('./src/utils/mock')['generateRandomEnglishText']>
+    readonly generateRandomImage: UnwrapRef<typeof import('./src/utils/mock')['generateRandomImage']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
