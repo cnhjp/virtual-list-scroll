@@ -2,6 +2,13 @@
 import rawData from "../data.json";
 const data: DataItem[] = rawData as DataItem[];
 
+defineProps({
+  noImage: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 interface Record {
   index: number;
   height: number;
@@ -125,19 +132,22 @@ onUnmounted(() => {
   );
 });
 </script>
-
 <template>
-  startIndex: {{ startIndex }}, endIndex: {{ endIndex }}
-  <br />
   <div
     style="
       height: 250px;
       border: 1px solid #ccc;
+      margin-bottom: 20px;
+      padding: 10px;
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
+      justify-content: space-between;
     "
   >
-    {{ visibleList }}
+    <div>startIndex: {{ startIndex }}, endIndex: {{ endIndex }}</div>
+    <div>
+      {{ visibleList }}
+    </div>
   </div>
   <div
     ref="refVirtualScrollList"
@@ -154,7 +164,7 @@ onUnmounted(() => {
       >
         <span style="color: red">{{ item.index }}</span>
         <div>{{ list[item.index].text }}</div>
-        <img :src="list[item.index].image" />
+        <img :src="list[item.index].image" v-if="!noImage" />
       </div>
     </div>
   </div>

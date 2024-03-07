@@ -20,6 +20,10 @@
       v-else-if="current === '固定高度虚拟列表(observer)'"
     />
     <DynamicHeightVirtualList v-else-if="current === '动态高度虚拟列表'" />
+    <DynamicHeightVirtualList
+      no-image
+      v-else-if="current === '动态高度虚拟列表(无图)'"
+    />
   </div>
 </template>
 
@@ -40,6 +44,10 @@ const lists = ref([
   {
     label: "普通列表",
     component: "NormalList",
+  },
+  {
+    label: "动态高度虚拟列表(无图)",
+    component: "DynamicHeightVirtualList",
   },
 ]);
 const current = ref("动态高度虚拟列表");
