@@ -25,3 +25,7 @@ dist-ssr
 
 # Auto imports directory
 auto-imports.d
+components.d.ts
+
+# generated data
+src/data.json

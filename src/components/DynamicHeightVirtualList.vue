@@ -163,7 +163,7 @@ onUnmounted(() => {
 <style scoped>
 .virtual-scroll-list {
   position: relative;
-  width: 90vw;
+  width: 100%;
   overflow-y: auto;
   border: 1px solid red;
 }

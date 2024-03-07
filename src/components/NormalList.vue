@@ -26,7 +26,7 @@ const list = ref<DataItem[]>(data); // 列表数据
 <style scoped>
 .virtual-scroll-list {
   position: relative;
-  width: 90vw;
+  width: 100%;
   overflow-y: auto;
   border: 1px solid red;
 }
