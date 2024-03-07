@@ -1,6 +1,9 @@
-import { generateRandomEnglishText, generateRandomImage } from "../utils/mock";
+import { generateRandomEnglishText, generateRandomImage } from "../utils/mock.ts";
 
-const LENGTH = 100000;
+// @ts-ignore
+const args = Deno.args;
+const LENGTHArg = args.find((arg: string) => arg.startsWith('--LENGTH='));
+const LENGTH = LENGTHArg ? Number(LENGTHArg.split('=')[1]) : 0;
 
 // 写一个函数，生成一个文件，文件内容是随机的英文文本
 async function createDataFile() {
