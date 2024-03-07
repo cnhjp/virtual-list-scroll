@@ -18,6 +18,10 @@ const refVirtualScrollList = ref<HTMLElement | null>(null); // 列表容器
 const refRenderList = ref<HTMLElement | null>(null); // 可见区域容器
 const idPrefix = ref("item_"); // 列表项id前缀
 
+// 添加新的ref
+const bufferAbove = ref(10);
+const bufferBelow = ref(10);
+
 // 列表总高度
 const listHeight = computed(() => {
   if (records.value.length) {
@@ -51,8 +55,8 @@ onMounted(() => {
     height: estimateHeight.value,
   }));
   const initialCount = Math.ceil(visibleHeight.value / estimateHeight.value);
-  startIndex.value = 0;
-  endIndex.value = initialCount - 1;
+  startIndex.value = Math.max(0, initialCount - bufferAbove.value);
+  endIndex.value = Math.min(total - 1, initialCount + bufferBelow.value - 1);
 });
 
 // 更新items的高度
@@ -60,9 +64,9 @@ function updateItemsHeights() {
   console.log("updateItemsHeights");
   const items = refRenderList.value?.children;
   if (!items) return;
-  [...items].forEach((element) => {
+  [...items].forEach((element: any) => {
     const index = +element.id.replace(idPrefix.value, "");
-    const height = element.clientHeight;
+    const height = element.offsetHeight;
     const record = records.value[index];
     if (record.height !== height) {
       record.height = height;
@@ -82,7 +86,6 @@ onUpdated(() => {
 
 // 监听滚动事件
 function handleScroll(e: Event) {
-  console.log("scroll");
   nextTick(() => {
     const target = e.target as HTMLElement;
     const scrollTop = target.scrollTop;
@@ -93,10 +96,13 @@ function handleScroll(e: Event) {
         scrollTop <= record.bottom &&
         scrollTop + record.height >= record.bottom
       ) {
-        startIndex.value = i;
+        startIndex.value = Math.max(0, i - bufferAbove.value);
       }
       if (scrollTop + visibleHeight.value <= record.bottom) {
-        endIndex.value = i;
+        endIndex.value = Math.min(
+          records.value.length - 1,
+          i + bufferBelow.value
+        );
         break;
       }
     }
@@ -121,6 +127,18 @@ onUnmounted(() => {
 </script>
 
 <template>
+  startIndex: {{ startIndex }}, endIndex: {{ endIndex }}
+  <br />
+  <div
+    style="
+      height: 250px;
+      border: 1px solid #ccc;
+      display: flex;
+      flex-direction: column-reverse;
+    "
+  >
+    {{ visibleList }}
+  </div>
   <div
     ref="refVirtualScrollList"
     class="virtual-scroll-list"
