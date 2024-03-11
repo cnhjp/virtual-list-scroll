@@ -85,5 +85,6 @@ const current = ref("动态高度虚拟列表");
 
 .content {
   padding-top: 50px; /* Adjust this value based on the height of your tabs */
+  width: 100%;
 }
 </style>
