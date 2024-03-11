@@ -16,7 +16,7 @@ interface Record {
 }
 
 const records = ref<Record[]>([]); // 记录列表项高度
-  const estimateHeight = ref(500); // 列表项预估高度
+const estimateHeight = ref(500); // 列表项预估高度
 const visibleHeight = ref(550); // 可见区域高度
 const list = ref<DataItem[]>([]); // 列表数据
 const startIndex = ref(0); // 可见区域起始索引
@@ -144,7 +144,10 @@ onUnmounted(() => {
       justify-content: space-between;
     "
   >
-    <div>startIndex: {{ startIndex }}, endIndex: {{ endIndex }}</div>
+    <div>
+      startIndex: {{ startIndex }}, endIndex: {{ endIndex }}, renderListStyle:
+      {{ renderListStyle }}
+    </div>
     <div>
       {{ visibleList }}
     </div>
