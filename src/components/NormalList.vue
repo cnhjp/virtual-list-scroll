@@ -42,4 +42,8 @@ const list = ref<DataItem[]>(data); // 列表数据
   text-align: center;
   padding: 13px 0;
 }
+
+.render-list .list-item img {
+  width: 25%;
+}
 </style>

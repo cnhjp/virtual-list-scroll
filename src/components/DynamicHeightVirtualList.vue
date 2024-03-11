@@ -16,8 +16,8 @@ interface Record {
 }
 
 const records = ref<Record[]>([]); // 记录列表项高度
-const estimateHeight = ref(150); // 列表项预估高度
-const visibleHeight = ref(450); // 可见区域高度
+  const estimateHeight = ref(500); // 列表项预估高度
+const visibleHeight = ref(550); // 可见区域高度
 const list = ref<DataItem[]>([]); // 列表数据
 const startIndex = ref(0); // 可见区域起始索引
 const endIndex = ref(0); // 可见区域结束索引
@@ -26,8 +26,8 @@ const refRenderList = ref<HTMLElement | null>(null); // 可见区域容器
 const idPrefix = ref("item_"); // 列表项id前缀
 
 // 添加新的ref
-const bufferAbove = ref(10);
-const bufferBelow = ref(10);
+const bufferAbove = ref(8);
+const bufferBelow = ref(8);
 
 // 列表总高度
 const listHeight = computed(() => {
@@ -62,8 +62,8 @@ onMounted(() => {
     height: estimateHeight.value,
   }));
   const initialCount = Math.ceil(visibleHeight.value / estimateHeight.value);
-  startIndex.value = Math.max(0, initialCount - bufferAbove.value);
-  endIndex.value = Math.min(total - 1, initialCount + bufferBelow.value - 1);
+  startIndex.value = 0; // Math.max(0, initialCount - bufferAbove.value);
+  endIndex.value = startIndex.value + initialCount + bufferBelow.value;
 });
 
 // 更新items的高度
@@ -188,5 +188,9 @@ onUnmounted(() => {
   border-bottom: 1px solid #000;
   text-align: center;
   padding: 13px 0;
+}
+
+.render-list .list-item img {
+  width: 25%;
 }
 </style>
